@@ -3,6 +3,7 @@ package hei.school;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -11,8 +12,16 @@ import java.util.Random;
 public class Marcheur {
     private Lieu position;
     private final Lieu destination;
+    private List<Lieu> marche;
 
-    public void marcher() {
+    public Marcheur(Lieu position, Lieu destination) {
+        this.position = position;
+        this.destination = destination;
+        this.marche = new ArrayList<>();
+        this.marche.add(position);
+    }
+
+    public List<Lieu> marcher() {
         Random random = new Random();
         while (!position.equals(destination)) {
             List<Rue> ruesAccessibleDepuisLeLieu = position.getRuesAccessibleDepuisLeLieu();
@@ -25,11 +34,13 @@ public class Marcheur {
                 System.out.println("Aucune rue accessible depuis le lieu actuel: " + position.getNom());
                 break;
             }
+
             Rue rueAleatoireAccessibleDepuisLeLieu = ruesAccessibleDepuisLeLieu.get(random.nextInt(ruesAccessibleDepuisLeLieu.size()));
             position = rueAleatoireAccessibleDepuisLeLieu.lieu1().equals(position)
                     ? rueAleatoireAccessibleDepuisLeLieu.lieu2()
                     : rueAleatoireAccessibleDepuisLeLieu.lieu1();
-            System.out.println("Marcheur se déplace à: " + position.getNom());
+            marche.add(position);
         }
+        return marche;
     }
 }
