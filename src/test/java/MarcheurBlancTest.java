@@ -4,9 +4,6 @@ import hei.school.Marcheur;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MarcheurBlancTest {
@@ -37,7 +34,6 @@ public class MarcheurBlancTest {
         antananarivo.ajouterRue("Rue Ranaivo", "Pullman", "Balançoire");
         antananarivo.ajouterRue("Rue 5", "Balançoire", "Boulevard de l'Europe");
         antananarivo.ajouterRue("Rue 6", "Balançoire", "ESTI");
-        antananarivo.ajouterRue("Rue 7", "Boulevard de l'Europe", "ESTI");
     }
 
     @Test
@@ -46,6 +42,16 @@ public class MarcheurBlancTest {
         marcheur.marcher();
 
         assertEquals(esti, marcheur.getPosition(), "Le marcheur devrait atteindre ESTI.");
+    }
+
+    @Test
+    public void testMarcheurDoitPasserParBalancoire() {
+        Marcheur marcheur = new Marcheur(hei, esti);
+        marcheur.marcher();
+
+        Lieu balancoire = antananarivo.getLieuxSurLaCarte().get("Balançoire");
+        
+        assertEquals(marcheur.getMarche().get(marcheur.getMarche().size() - 2), balancoire);
     }
 
     @Test
