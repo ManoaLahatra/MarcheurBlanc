@@ -1,5 +1,7 @@
-package hei.school;
+package hei.school.Carte;
 
+import hei.school.Lieu;
+import hei.school.Rue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

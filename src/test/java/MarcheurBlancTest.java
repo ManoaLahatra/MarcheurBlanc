@@ -1,4 +1,4 @@
-import hei.school.Carte;
+import hei.school.Carte.Carte;
 import hei.school.Lieu;
 import hei.school.Marcheur;
 import org.junit.jupiter.api.BeforeEach;

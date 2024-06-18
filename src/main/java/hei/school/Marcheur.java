@@ -22,17 +22,17 @@ public class Marcheur {
     }
 
     public List<Lieu> marcher() {
+        List<Rue> ruesAccessibleDepuisLaDestination = destination.getRuesAccessibleDepuisLeLieu();
+        if (ruesAccessibleDepuisLaDestination.isEmpty()) {
+            System.out.println("Aucune rue accessible depuis la destination : " + destination.getNom());
+            return marche;
+        }
         Random random = new Random();
         while (!position.equals(destination)) {
             List<Rue> ruesAccessibleDepuisLeLieu = position.getRuesAccessibleDepuisLeLieu();
-            List<Rue> ruesAccessibleDepuisLaDestination = destination.getRuesAccessibleDepuisLeLieu();
-            if (ruesAccessibleDepuisLaDestination.isEmpty()) {
-                System.out.println("Aucune rue accessible depuis la destination : " + destination.getNom());
-                break;
-            }
             if (ruesAccessibleDepuisLeLieu.isEmpty()) {
                 System.out.println("Aucune rue accessible depuis le lieu actuel: " + position.getNom());
-                break;
+                return marche;
             }
 
             Rue rueAleatoireAccessibleDepuisLeLieu = ruesAccessibleDepuisLeLieu.get(random.nextInt(ruesAccessibleDepuisLeLieu.size()));
