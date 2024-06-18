@@ -6,6 +6,8 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @AllArgsConstructor
 @Getter
@@ -22,16 +24,17 @@ public class Marcheur {
     }
 
     public List<Lieu> marcher() {
+        Logger logger = Logger.getLogger(Marcheur.class.getName());
         List<Rue> ruesAccessibleDepuisLaDestination = destination.getRuesAccessibleDepuisLeLieu();
         if (ruesAccessibleDepuisLaDestination.isEmpty()) {
-            System.out.println("Aucune rue accessible depuis la destination : " + destination.getNom());
+            logger.log(Level.WARNING, "Aucune rue accessible depuis la destination : " + destination.getNom());
             return marche;
         }
         Random random = new Random();
         while (!position.equals(destination)) {
             List<Rue> ruesAccessibleDepuisLeLieu = position.getRuesAccessibleDepuisLeLieu();
             if (ruesAccessibleDepuisLeLieu.isEmpty()) {
-                System.out.println("Aucune rue accessible depuis le lieu actuel: " + position.getNom());
+                logger.log(Level.WARNING, "Aucune rue accessible depuis le lieu actuel: " + position.getNom());
                 return marche;
             }
 
