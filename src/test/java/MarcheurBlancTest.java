@@ -1,4 +1,5 @@
 import hei.school.Carte.Carte;
+import hei.school.Environnement;
 import hei.school.Lieu;
 import hei.school.Marcheur;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ public class MarcheurBlancTest {
     private Carte antananarivo;
     private Lieu hei;
     private Lieu esti;
+    private Environnement environnement;
 
     @BeforeEach
     public void setup() {
@@ -34,11 +36,13 @@ public class MarcheurBlancTest {
         antananarivo.ajouterRue("Rue Ranaivo", "Pullman", "Balançoire");
         antananarivo.ajouterRue("Rue 5", "Balançoire", "Boulevard de l'Europe");
         antananarivo.ajouterRue("Rue 6", "Balançoire", "ESTI");
+
+        environnement = new Environnement(antananarivo);
     }
 
     @Test
     public void testMarcher() {
-        Marcheur marcheur = new Marcheur(hei, esti);
+        Marcheur marcheur = new Marcheur(hei, esti, environnement);
         marcheur.marcher();
 
         assertEquals(esti, marcheur.getPosition(), "Le marcheur devrait atteindre ESTI.");
@@ -46,7 +50,7 @@ public class MarcheurBlancTest {
 
     @Test
     public void testMarcheurDoitPasserParBalancoire() {
-        Marcheur marcheur = new Marcheur(hei, esti);
+        Marcheur marcheur = new Marcheur(hei, esti, environnement);
         marcheur.marcher();
 
         Lieu balancoire = antananarivo.getLieuxSurLaCarte().get("Balançoire");
@@ -57,7 +61,7 @@ public class MarcheurBlancTest {
     @Test
     public void testMarcherVersUnLieuSansRue() {
         Lieu lieuIsole = antananarivo.ajouterLieu("Lieu Isolé");
-        Marcheur marcheur = new Marcheur(hei, lieuIsole);
+        Marcheur marcheur = new Marcheur(hei, lieuIsole, environnement);
 
         marcheur.marcher();
 
