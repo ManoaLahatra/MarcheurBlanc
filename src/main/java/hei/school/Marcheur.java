@@ -14,11 +14,13 @@ import java.util.logging.Logger;
 public class Marcheur {
     private Lieu position;
     private final Lieu destination;
+    private final Environnement environnement;
     private List<Lieu> marche;
 
-    public Marcheur(Lieu position, Lieu destination) {
+    public Marcheur(Lieu position, Lieu destination, Environnement environnement) {
         this.position = position;
         this.destination = destination;
+        this.environnement = environnement;
         this.marche = new ArrayList<>();
         this.marche.add(position);
     }
@@ -32,7 +34,7 @@ public class Marcheur {
         }
         Random random = new Random();
         while (!position.equals(destination)) {
-            List<Rue> ruesAccessibleDepuisLeLieu = position.getRuesAccessibleDepuisLeLieu();
+            List<Rue> ruesAccessibleDepuisLeLieu = environnement.demanderLeChemin(position);
             if (ruesAccessibleDepuisLeLieu.isEmpty()) {
                 logger.log(Level.WARNING, "Aucune rue accessible depuis le lieu actuel: " + position.getNom());
                 return marche;
