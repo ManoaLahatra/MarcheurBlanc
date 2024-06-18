@@ -12,8 +12,8 @@ import java.util.Map;
 @AllArgsConstructor
 @Getter
 public class Carte {
-    private final Lieu lieuDeDepart;
-    private Map<String, Lieu> lieuxSurLaCarte;
+    protected final Lieu lieuDeDepart;
+    protected Map<String, Lieu> lieuxSurLaCarte;
 
     public Carte(Lieu lieuDeDepart) {
         this.lieuDeDepart = lieuDeDepart;
